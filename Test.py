@@ -1,4 +1,4 @@
-for(Gild):
-    hunt
+import numpy as np
 
+np.inner()
 
