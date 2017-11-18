@@ -7,6 +7,3 @@ average = data['Bikes'].mean
 average = data['Bikes'].mean()
 
 print(average)
-np.linspace(1,726,726)
-result = pd.DataFrame(columns="ID","Total")
-print(np)
