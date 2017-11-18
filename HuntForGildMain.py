@@ -83,6 +83,17 @@ for i in range(0, len(bikes)-1):
     mainDf.set_value(i,'Bikes',bikesNum)
     #Holiday
 
+    holidayvalue = 0
+    for i in range(0, len(holidays)):
+        if (holidayvalue == 0):
+            holiday = pd.to_datetime(holidays.iloc[i]['Date'], format="%d/%m/%Y")
+            if (holiday == t):
+                print(holiday)
+                print(holidays.iloc[i])
+                print(holidays.iloc[i]['Date'])
+                holidayvalue = 1
+    mainDf.set_value(i, 'Holiday', holidayvalue)
+
     #sal[sal['EmployeeName'] == 'JOSEPH DRISCOLL']['TotalPayBenefits']
 #print(bikes) # 2016-11-11 - Friday - 4
 print("hi")
