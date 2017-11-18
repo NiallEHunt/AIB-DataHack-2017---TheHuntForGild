@@ -33,36 +33,42 @@ print(type(Y))
 print(Y.shape)
 
 
-X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1)
+#X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1)
 
-print(X_train.shape)
-print(X_test.shape)
-print(y_train.shape)
-print(y_test.shape)
+#print(X_train.shape)
+#print(X_test.shape)
+#print(y_train.shape)
+#print(y_test.shape)
 
 linreg = LinearRegression()
 
-linreg.fit(X_train, y_train)
+linreg.fit(X, Y)
 
-print(linreg.intercept_)
-print(linreg.coef_)
+#print(linreg.intercept_)
+#print(linreg.coef_)
 
-zip(feature_cols, linreg.coef_)
+#zip(feature_cols, linreg.coef_)
 
-y_pred = linreg.predict(X_test)
+#y_pred = linreg.predict(X_test)
 
-print(np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+#print(np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
 
 #plt.scatter(y_test, y_pred)
 #plt.xlabel('y_test')
 #plt.show()
 
-print(y_pred)
-print(y_test)
+#print(y_pred)
+#print(y_test)
 
-Testing = pd.read_csv("Testing.csv", index_col=0)
+Testing = pd.read_csv("Final Test.csv", index_col=0)
 testingCols = Testing[feature_cols]
 results = linreg.predict(testingCols)
 
 print(results)
 
+prevResults = pd.read_csv("Results.csv", index_col=0)
+ourResults = pd.DataFrame(prevResults,columns=['ID','Total'])
+for i in range(0, len(results)):
+    ourResults.set_value(i, 'ID', i+1)
+    ourResults.set_value(i,'Total',results[i])
+ourResults.to_csv("Final Results.csv", index=False)
