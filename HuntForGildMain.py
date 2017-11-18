@@ -1,8 +1,16 @@
 import numpy as np
 import pandas as pd
-from pandas.tseries.holiday import USFederalHolidayCalendar as calendar
+#from pandas.tseries.holiday import USFederalHolidayCalendar as calendar
 import datetime
 
+def check_date(date):
+    correctDate = None
+    try:
+        newDate = date
+        correctDate = True
+    except ValueError:
+        correctDate = False
+    return correctDate
 bikes = pd.read_csv("Bikes.csv")
 holidays = pd.read_csv("Holidays.csv")
 weather = pd.read_csv("Weather.csv")
@@ -14,8 +22,8 @@ final_test = pd.read_csv("Final Test.csv")
 #print(bikes.head())
 #print(bikes)
 
-print("Holidays Dataset Head:")
-print(holidays.head())
+#print("Holidays Dataset Head:")
+#print(holidays.head())
 
 #print("Weather Dataset Head:")
 #print(weather.head())
@@ -24,8 +32,19 @@ print(holidays.head())
 #print(final_test.head())
 #print(holidays["Date"])
 
+holidays['Date']=pd.to_datetime(holidays['Date'], unit='s')
+#print(holidays['Date'])
 
-#print(df)
-#df['Date'] = datetime.date.fromordinal(holidays['Date'])
-#df['Date'] = pd.to_datetime(holidays['Date'], format='%Y%m%d.0')
-#print (df)
+#print(bikes)
+#sal[sal['Year']==2013]['JobTitle']
+validDates = 0
+for i in range(0, len(holidays)):
+    t = holidays.iloc[i]['Date']
+    print(t.weekday())
+    print(t.month())
+    print(holidays.iloc[i]['Date'])
+
+#print(bikes) # 2016-11-11 - Friday - 4
+
+
+##For loop check through dates in bikes to check are they a holiday if so true holiday boolean in main dataframe
