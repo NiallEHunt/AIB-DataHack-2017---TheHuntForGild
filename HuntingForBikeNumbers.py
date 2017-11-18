@@ -1,7 +1,7 @@
 import pandas as pd
 import seaborn as sns
 
-data = pd.read_csv("data.csv", index_col=0)
+data = pd.read_csv("data", index_col=0)
 
 print(data.head())
 print(data.tail())

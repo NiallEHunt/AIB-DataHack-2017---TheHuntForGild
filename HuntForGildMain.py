@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import seabird as sb
 #from pandas.tseries.holiday import USFederalHolidayCalendar as calendar
 import datetime
 
@@ -88,5 +87,7 @@ for i in range(0, len(bikes)-1):
 #print(bikes) # 2016-11-11 - Friday - 4
 print("hi")
 print(mainDf)
+
+mainDf.to_csv("data")
 
 ##For loop check through dates in bikes to check are they a holiday if so true holiday boolean in main dataframe
