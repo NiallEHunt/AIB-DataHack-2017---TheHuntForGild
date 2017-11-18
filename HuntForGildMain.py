@@ -88,4 +88,6 @@ for i in range(0, len(bikes)-1):
 print("hi")
 print(mainDf)
 
+mainDf.to_csv("data")
+
 ##For loop check through dates in bikes to check are they a holiday if so true holiday boolean in main dataframe
