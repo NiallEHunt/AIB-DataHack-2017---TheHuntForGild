@@ -61,7 +61,8 @@ print(y_pred)
 print(y_test)
 
 Testing = pd.read_csv("Testing.csv", index_col=0)
-results = linreg.predict(Testing)
+testingCols = Testing[feature_cols]
+results = linreg.predict(testingCols)
 
 print(results)
 
