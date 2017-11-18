@@ -38,14 +38,55 @@ holidays['Date']=pd.to_datetime(holidays['Date'], unit='s')
 
 #print(bikes)
 #sal[sal['Year']==2013]['JobTitle']
-validDates = 0
-for i in range(0, len(holidays)):
-    t = holidays.iloc[i]['Date']
+
+#ID,Weekday,Month,AWND,PRCP,SNOW,SNWD,TAVG,TMAX,TMIN,Holiday
+trainingData = pd.read_csv("trainingData.csv")
+#bikesFrame = pd.DataFrame(bikes['Bikes'])
+mainDf = pd.DataFrame(trainingData,columns=['ID','Weekday','Month','AWND','PRCP','SNOW','SNWD','TAVG','TMAX','TMIN','Holiday','Bikes'])
+#mainDf['ID'] = mainDf.ID.astype(np.int64)
+for i in range(0, len(bikes)-1):
+    # Handle ID
+    # Handle Weekday Month Holiday Bikes using Bikes.csv
+    #Bikes.csv - bikes
+    #Date,Bikes
+    #01/01/2015,2611
+    t = pd.to_datetime(bikes.iloc[i]['Date'],format="%d/%m/%Y")
+    #t.strftime('%a-%b-%Y')
+    weekday = t.weekday()
+    print(t)
+    print("Weekday")
     print(t.weekday())
-    print(t.month())
-    print(holidays.iloc[i]['Date'])
+    print("Month")
+    print(t.month)
+    print(weekday)
+    mainDf.set_value(i,'Weekday',weekday)
+    #mainDf.iloc[i]['Weekday'] = (weekday)
+    month = t.month
+    mainDf.set_value(i,'Month',month)
+    #print(mainDf.loc[holidays.Date == t, 'Holiday'])
 
+    # Handle AWND PRCP SNOW SNWD TAVG TMAX TMIN from Weather.csv
+    awnd=weather.loc[i]['AWND']
+    mainDf.set_value(i,'AWND',awnd)
+    prcp=weather.loc[i]['PRCP']
+    mainDf.set_value(i,'PRCP',prcp)
+    print(i)
+    snow=weather.loc[i]['SNOW']
+    mainDf.set_value(i,'SNOW',snow)
+#   mainDf.iloc[i]['SNWD']=bikes.iloc[i]['Bikes']
+    tavg=weather.loc[i]['TAVG']
+    mainDf.set_value(i,'TAVG',tavg)
+    tmax = weather.loc[i]['TMAX']
+    mainDf.set_value(i,'TMAX',tmax)
+    tmin=weather.loc[i]['TMIN']
+    mainDf.set_value(i,'TMIN',tmin)
+    bikesNum = bikes.loc[i]['Bikes']
+    mainDf.set_value(i,'Bikes',bikesNum)
+    #Holiday
+
+    #sal[sal['EmployeeName'] == 'JOSEPH DRISCOLL']['TotalPayBenefits']
 #print(bikes) # 2016-11-11 - Friday - 4
-
+print("hi")
+print(mainDf)
 
 ##For loop check through dates in bikes to check are they a holiday if so true holiday boolean in main dataframe
