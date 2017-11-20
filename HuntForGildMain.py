@@ -39,7 +39,7 @@ holidays['Date']=pd.to_datetime(holidays['Date'], unit='s')
 #sal[sal['Year']==2013]['JobTitle']
 
 #ID,Weekday,Month,AWND,PRCP,SNOW,SNWD,TAVG,TMAX,TMIN,Holiday
-trainingData = pd.read_csv("trainingData.csv")
+trainingData = pd.read_csv("SetupForTrainingData.csv")
 #bikesFrame = pd.DataFrame(bikes['Bikes'])
 mainDf = pd.DataFrame(trainingData,columns=['ID','Weekday','Month','AWND','PRCP','SNOW','SNWD','TAVG','TMAX','TMIN','Holiday','Bikes'])
 #mainDf['ID'] = mainDf.ID.astype(np.int64)
