@@ -3,7 +3,7 @@ The Hunt for Gild take on the AIB Datathon 2017!
 
 200 PhD, Masters and Undergraduate students competing on the day.
 
-<center><img src="https://github.com/NiallEHunt/HuntForGild/blob/master/DataHack%202017/AIBDataHack.png?raw=trueg" 
+<center><img src="https://github.com/NiallEHunt/HuntForGild/blob/master/GivenData/AIBDataHack.png" 
 alt="AIB DataHack Logo" /></center>
 
 ## Task 
