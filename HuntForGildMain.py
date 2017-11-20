@@ -15,10 +15,10 @@ def check_date(date):
 
 
 # Reading given data
-bikes = pd.read_csv("Bikes.csv")
-holidays = pd.read_csv("Holidays.csv")
-weather = pd.read_csv("Weather.csv")
-final_test = pd.read_csv("Final Test.csv")
+bikes = pd.read_csv("GivenData/Bikes.csv")
+holidays = pd.read_csv("GivenData/Holidays.csv")
+weather = pd.read_csv("GivenData/Weather.csv")
+final_test = pd.read_csv("GivenData/Final Test.csv")
 
 if verbose:
     print("Reading in given data ...")
