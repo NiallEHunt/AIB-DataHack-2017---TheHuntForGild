@@ -34,3 +34,10 @@ We got a score of 1250.
 
 👌Super proud 
 👌
+
+
+
+## The Hunt for Gild
+Our team consists of Conor Gildea and Niall Hunt. Two second year computer science students studying in Trinity College Dublin at the time of this competition.
+Conor Gildea: https://www.linkedin.com/in/csigildea/
+Niall Hunt: https://www.linkedin.com/in/niall-hunt-0a3221151/
