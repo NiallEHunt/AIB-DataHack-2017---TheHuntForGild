@@ -4,71 +4,58 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.cross_validation import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn import metrics
 
-data = pd.read_csv("data", index_col=0)
+verbose = True
 
-print(data.head())
-print(data.tail())
-print(data.shape)
+# Reading in data
+data = pd.read_csv("data.csv", index_col=0)
+if verbose:
+    print("Reading data.csv ...")
 
-#,ID,Weekday,Month,AWND,PRCP,SNOW,SNWD,TAVG,TMAX,TMIN,Holiday,Bikes
-
-#sns.pairplot(data, x_vars=['Weekday', 'Month', 'Holiday'], y_vars='Bikes', size=7, aspect=0.7, kind='reg')
-#plt.show()
+# The following two lines are used to graphically represent the relation between the listed features (x_vars) and
+# the numbers of Bikes borrowed on the same day
+# sns.pairplot(data, x_vars=['Weekday', 'Month', 'Holiday'], y_vars='Bikes', size=7, aspect=0.7, kind='reg')
+# plt.show()
 
 feature_cols = ['Weekday', 'Month', 'AWND', 'PRCP', 'SNOW', 'TAVG', 'TMAX', 'TMIN', 'Holiday']
 X = data[feature_cols]
 
-print(X.head())
-
 Y = data[['Bikes']]
 
-print(type(X))
-print(X.shape)
+# The following line is used to split our training data into initial training and testing data
+# X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1)
 
-print(Y.head())
-
-print(type(Y))
-print(Y.shape)
-
-
-#X_train, X_test, y_train, y_test = train_test_split(X, Y, random_state=1)
-
-#print(X_train.shape)
-#print(X_test.shape)
-#print(y_train.shape)
-#print(y_test.shape)
-
+# Creating out linear regression model and training with the whole data set.
 linreg = LinearRegression()
 
 linreg.fit(X, Y)
+if verbose:
+    print("Training linear regression model ...")
 
-#print(linreg.intercept_)
-#print(linreg.coef_)
+# Training with our split training and testing data
+# linreg.fit(X_train, y_train)
 
-#zip(feature_cols, linreg.coef_)
+# Predicting bike numbers based on our test data
+# y_pred = linreg.predict(X_test)
 
-#y_pred = linreg.predict(X_test)
+# Reading in the given test data
+testing_data = pd.read_csv("Final Test.csv", index_col=0)
+testing_data_feature_cols = testing_data[feature_cols]
+if verbose:
+    print("Reading final test data ...")
 
-#print(np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
+results = linreg.predict(testing_data_feature_cols)
+if verbose:
+    print("Predicting bike numbers ...")
 
-#plt.scatter(y_test, y_pred)
-#plt.xlabel('y_test')
-#plt.show()
-
-#print(y_pred)
-#print(y_test)
-
-Testing = pd.read_csv("Final Test.csv", index_col=0)
-testingCols = Testing[feature_cols]
-results = linreg.predict(testingCols)
-
-print(results)
-
+# Writing our results given in an array to a .csv file
 prevResults = pd.read_csv("Results.csv", index_col=0)
-ourResults = pd.DataFrame(prevResults,columns=['ID','Total'])
+ourResults = pd.DataFrame(prevResults, columns=['ID', 'Total'])
 for i in range(0, len(results)):
     ourResults.set_value(i, 'ID', i+1)
-    ourResults.set_value(i,'Total',results[i])
+    ourResults.set_value(i, 'Total', results[i])
 ourResults.to_csv("Final Results.csv", index=False)
+if verbose:
+    print("Writing results to Final Results.csv ...")
+
+print("Results written to Final Results.csv")

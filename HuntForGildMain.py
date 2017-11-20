@@ -1,104 +1,87 @@
 import numpy as np
 import pandas as pd
-#from pandas.tseries.holiday import USFederalHolidayCalendar as calendar
 import datetime
 
+verbose = True
+
 def check_date(date):
-    correctDate = None
+    correct_date = None
     try:
         newDate = date
-        correctDate = True
+        correct_date = True
     except ValueError:
-        correctDate = False
-    return correctDate
+        correct_date = False
+    return correct_date
+
+
+# Reading given data
 bikes = pd.read_csv("Bikes.csv")
 holidays = pd.read_csv("Holidays.csv")
 weather = pd.read_csv("Weather.csv")
-holidays = pd.read_csv("Holidays.csv")
 final_test = pd.read_csv("Final Test.csv")
 
+if verbose:
+    print("Reading in given data ...")
 
-#print("Bikes Dataset Head:")
-#print(bikes.head())
-#print(bikes)
+holidays['Date'] = pd.to_datetime(holidays['Date'], unit='s')
 
-#print("Holidays Dataset Head:")
-#print(holidays.head())
-
-#print("Weather Dataset Head:")
-#print(weather.head())
-
-#print("Final Test Dataset Head:")
-#print(final_test.head())
-#print(holidays["Date"])
-
-holidays['Date']=pd.to_datetime(holidays['Date'], unit='s')
-#print(holidays['Date'])
-
-#print(bikes)
-#sal[sal['Year']==2013]['JobTitle']
-
-#ID,Weekday,Month,AWND,PRCP,SNOW,SNWD,TAVG,TMAX,TMIN,Holiday
+# Formatting data into one .csv file with only the relevant features
+# ID,Weekday,Month,AWND,PRCP,SNOW,SNWD,TAVG,TMAX,TMIN,Holiday
 trainingData = pd.read_csv("SetupForTrainingData.csv")
-#bikesFrame = pd.DataFrame(bikes['Bikes'])
-mainDf = pd.DataFrame(trainingData,columns=['ID','Weekday','Month','AWND','PRCP','SNOW','SNWD','TAVG','TMAX','TMIN','Holiday','Bikes'])
-#mainDf['ID'] = mainDf.ID.astype(np.int64)
+mainDf = pd.DataFrame(trainingData,
+                      columns=['ID', 'Weekday', 'Month', 'AWND', 'PRCP', 'SNOW',
+                               'SNWD', 'TAVG', 'TMAX', 'TMIN', 'Holiday', 'Bikes'])
+
 for i in range(0, len(bikes)-1):
-    # Handle ID
-    # Handle Weekday Month Holiday Bikes using Bikes.csv
-    #Bikes.csv - bikes
-    #Date,Bikes
-    #01/01/2015,2611
-    t = pd.to_datetime(bikes.iloc[i]['Date'],format="%d/%m/%Y")
-    #t.strftime('%a-%b-%Y')
+
+    # Handling date from Bikes.csv
+    t = pd.to_datetime(bikes.iloc[i]['Date'], format="%d/%m/%Y")
+
     weekday = t.weekday()
-    print(t)
-    print("Weekday")
-    print(t.weekday())
-    print("Month")
-    print(t.month)
-    print(weekday)
-    mainDf.set_value(i,'Weekday',weekday)
-    #mainDf.iloc[i]['Weekday'] = (weekday)
+    mainDf.set_value(i, 'Weekday', weekday)
+
     month = t.month
-    mainDf.set_value(i,'Month',month)
-    #print(mainDf.loc[holidays.Date == t, 'Holiday'])
+    mainDf.set_value(i, 'Month', month)
 
-    # Handle AWND PRCP SNOW SNWD TAVG TMAX TMIN from Weather.csv
-    awnd=weather.loc[i]['AWND']
-    mainDf.set_value(i,'AWND',awnd)
-    prcp=weather.loc[i]['PRCP']
-    mainDf.set_value(i,'PRCP',prcp)
-    print(i)
-    snow=weather.loc[i]['SNOW']
-    mainDf.set_value(i,'SNOW',snow)
-#   mainDf.iloc[i]['SNWD']=bikes.iloc[i]['Bikes']
-    tavg=weather.loc[i]['TAVG']
-    mainDf.set_value(i,'TAVG',tavg)
+    # Handling AWND PRCP SNOW SNWD TAVG TMAX TMIN from Weather.csv
+    awnd = weather.loc[i]['AWND']
+    mainDf.set_value(i, 'AWND', awnd)
+
+    prcp = weather.loc[i]['PRCP']
+    mainDf.set_value(i, 'PRCP', prcp)
+
+    snow = weather.loc[i]['SNOW']
+    mainDf.set_value(i, 'SNOW', snow)
+
+    tavg = weather.loc[i]['TAVG']
+    mainDf.set_value(i, 'TAVG', tavg)
+
     tmax = weather.loc[i]['TMAX']
-    mainDf.set_value(i,'TMAX',tmax)
-    tmin=weather.loc[i]['TMIN']
-    mainDf.set_value(i,'TMIN',tmin)
-    bikesNum = bikes.loc[i]['Bikes']
-    mainDf.set_value(i,'Bikes',bikesNum)
-    #Holiday
+    mainDf.set_value(i, 'TMAX', tmax)
 
+    tmin = weather.loc[i]['TMIN']
+    mainDf.set_value(i, 'TMIN', tmin)
+
+    bikesNum = bikes.loc[i]['Bikes']
+    mainDf.set_value(i, 'Bikes', bikesNum)
+
+    # Handling holidays
     holidayvalue = 0
     for i in range(0, len(holidays)):
-        if (holidayvalue == 0):
+        if holidayvalue == 0:
             holiday = pd.to_datetime(holidays.iloc[i]['Date'], format="%d/%m/%Y")
-            if (holiday == t):
-                print(holiday)
-                print(holidays.iloc[i])
-                print(holidays.iloc[i]['Date'])
+            if holiday == t:
                 holidayvalue = 1
     mainDf.set_value(i, 'Holiday', holidayvalue)
 
-    #sal[sal['EmployeeName'] == 'JOSEPH DRISCOLL']['TotalPayBenefits']
-#print(bikes) # 2016-11-11 - Friday - 4
-print("hi")
-print(mainDf)
+if verbose:
+    print("Adding weekday and month to final table ...")
+    print("Adding weather stats to final table ...")
+    print("Adding holidays to the final table ...")
 
-mainDf.to_csv("data", index=False)
+# Writing data to .csv
+mainDf.to_csv("data.csv", index=False)
+if verbose:
+    print("Writing final table to data.csv ...")
 
-##For loop check through dates in bikes to check are they a holiday if so true holiday boolean in main dataframe
+print("Data table written to data.csv")
