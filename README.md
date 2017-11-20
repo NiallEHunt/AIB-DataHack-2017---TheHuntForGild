@@ -1,6 +1,8 @@
 # AIB DataHack 2017 - The Hunt For Gild
 The Hunt for Gild take on the AIB Datathon 2017!
 
+200 PhD, Masters and Undergraduate students competing on the day.
+
 <center><img src="https://github.com/NiallEHunt/HuntForGild/blob/master/DataHack%202017/AIBDataHack.png?raw=trueg" 
 alt="AIB DataHack Logo" /></center>
 
@@ -23,7 +25,7 @@ A lower score is better.
 The top two teams got a score around 950.
 
 
-Thirdplace got a score of 1100.
+Third place got a score of 1100.
 
 We got a score of 1250.
 
