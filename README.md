@@ -42,4 +42,4 @@ Our team consists of Conor Gildea and Niall Hunt. Two second year computer scien
 
 Conor Gildea: https://www.linkedin.com/in/csigildea/
 
-Niall Hunt: https://www.linkedin.com/in/niall-hunt-0a3221151/
+Niall Hunt: https://www.linkedin.com/in/niallehunt/
